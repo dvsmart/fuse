@@ -19,23 +19,37 @@ import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
 import { InMemoryWebApiModule } from '../../node_modules/angular-in-memory-web-api';
+import { AuthGuard } from './main/guards/auth.guard';
+import { AuthService } from './main/guards/authservice';
 
 const appRoutes: Routes = [
+    { path: '', redirectTo:'login' },
     {
-        path        : 'apps',
-        loadChildren: './main/apps/apps.module#AppsModule'
+        path: 'login',
+        loadChildren: './main/pages/authentication/login-2.module#Login2Module'
     },
     {
-        path      : '**',
-        redirectTo: 'apps/dashboards/analytics'
-    }
+        path: '',
+        canActivate: [AuthGuard],
+        loadChildren: './main/apps/apps.module#AppsModule'
+    }//,
+    // {
+    //     path        : 'apps',
+    //     canActivateChild:[AuthGuard],
+    //     loadChildren: './main/apps/apps.module#AppsModule'
+    // },
+    // {
+    //     path        : 'pages',
+    //     loadChildren: './main/pages/pages.module#PagesModule'
+    // },
+    //{ path: '**', redirectTo: '' }
 ];
 
 @NgModule({
     declarations: [
         AppComponent
     ],
-    imports     : [
+    imports: [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
@@ -44,7 +58,7 @@ const appRoutes: Routes = [
         TranslateModule.forRoot(),
 
         InMemoryWebApiModule.forRoot(FakeDbService, {
-            delay             : 0,
+            delay: 0,
             passThruUnknownUrl: true
         }),
         // Material moment date module
@@ -65,10 +79,10 @@ const appRoutes: Routes = [
         LayoutModule,
         SampleModule
     ],
-    bootstrap   : [
+    providers: [AuthGuard, AuthService],
+    bootstrap: [
         AppComponent
     ]
 })
-export class AppModule
-{
+export class AppModule {
 }
