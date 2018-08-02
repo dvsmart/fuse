@@ -14,14 +14,20 @@ import { FuseProgressBarModule, FuseSidebarModule, FuseThemeOptionsModule } from
 
 import { fuseConfig } from 'app/fuse-config';
 
+import { FakeDbService } from 'app/fake-db/fake-db.service';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
+import { InMemoryWebApiModule } from '../../node_modules/angular-in-memory-web-api';
 
 const appRoutes: Routes = [
     {
+        path        : 'apps',
+        loadChildren: './main/apps/apps.module#AppsModule'
+    },
+    {
         path      : '**',
-        redirectTo: 'sample'
+        redirectTo: 'apps/dashboards/analytics'
     }
 ];
 
@@ -37,6 +43,10 @@ const appRoutes: Routes = [
 
         TranslateModule.forRoot(),
 
+        InMemoryWebApiModule.forRoot(FakeDbService, {
+            delay             : 0,
+            passThruUnknownUrl: true
+        }),
         // Material moment date module
         MatMomentDateModule,
 
