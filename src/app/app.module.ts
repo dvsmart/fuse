@@ -22,13 +22,11 @@ import { InMemoryWebApiModule } from '../../node_modules/angular-in-memory-web-a
 import { AuthGuard } from './main/guards/auth.guard';
 import { AuthService } from './main/guards/authservice';
 import { Login2Module } from './main/login-2/login-2.module';
-import { Login2Component } from './main/login-2/login-2.component';
 
 const appRoutes: Routes = [
-    {path: '', redirectTo:'login', pathMatch: 'full'},
-    {path: 'login', component:Login2Component},
+    {path: '', redirectTo:'apps', pathMatch: 'full'},
     {
-        path:'',
+        path:'apps',
         canActivate:[AuthGuard],
         loadChildren: './main/apps/apps.module#AppsModule'
     }

@@ -8,7 +8,7 @@ import { Login2Component } from './login-2.component';
 
 const routes = [
     {
-        path     : 'login',
+        path     : 'login-2',
         component: Login2Component
     }
 ];

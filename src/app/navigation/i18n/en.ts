@@ -7,6 +7,8 @@ export const locale = {
             'CALENDAR'    : 'Calendar',
             'CHAT'        : 'Chat',
             'FILE_MANAGER': 'File Manager',
+            'CONTACTS' : 'Contacts',
+            'ASSET': 'Asset',
             'TODO'        : 'To-Do',
             'SAMPLE'        : {
                 'TITLE': 'Sample',

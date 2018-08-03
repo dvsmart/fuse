@@ -52,12 +52,36 @@ export const navigation: FuseNavigation[] = [
                 ]
             },
             {
+                id       : 'asset',
+                title    : 'Asset',
+                translate: 'NAV.ASSET',
+                type     : 'collapsable',
+                icon     : 'Assignment',
+                children : [
+                    {
+                        id   : 'properties',
+                        title: 'Properties',
+                        type : 'item',
+                        url  : '/apps/asset-properties/asset-properties'
+                    }
+                ]
+            },
+
+            {
                 id       : 'calendar',
                 title    : 'Calendar',
                 translate: 'NAV.CALENDAR',
                 type     : 'item',
                 icon     : 'today',
                 url      : '/apps/calendar'
+            },
+            {
+                id       : 'contacts',
+                title    : 'Contacts',
+                translate: 'NAV.CONTACTS',
+                type     : 'item',
+                icon     : 'account_box',
+                url      : '/apps/contacts'
             },
             {
                 id       : 'chat',

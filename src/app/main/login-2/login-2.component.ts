@@ -58,7 +58,7 @@ export class Login2Component implements OnInit
      */
     ngOnInit(): void
     {
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'apps/dashboards/analytics';
         this.loginForm = this._formBuilder.group({
             email   : ['', [Validators.required, Validators.email]],
             password: ['', Validators.required]
@@ -66,15 +66,12 @@ export class Login2Component implements OnInit
     }
 
     onLogin() {
-        debugger;
         if (this.loginForm.invalid) {
           return;
         }
-        
         var isAuthenticated = this.authservice.authenticate(this.loginForm.value);
         if (isAuthenticated) {
           this.router.navigateByUrl(this.returnUrl);
-          //return true;
         }
-      }
+    }
 }
