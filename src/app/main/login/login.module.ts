@@ -6,7 +6,7 @@ import { FuseSharedModule } from "@fuse/shared.module";
 
 const routes = [
     {
-        path     : 'auth/login',
+        path: '',
         component: LoginComponent
     }
 ];
@@ -15,7 +15,7 @@ const routes = [
     declarations: [
         LoginComponent
     ],
-    imports     : [
+    imports: [
         RouterModule.forChild(routes),
         MatButtonModule,
         MatCheckboxModule,
@@ -24,6 +24,5 @@ const routes = [
         FuseSharedModule
     ]
 })
-export class LoginModule
-{
+export class LoginModule {
 }

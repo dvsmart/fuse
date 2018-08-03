@@ -17,11 +17,27 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
+import { AuthGuard } from './main/auth/auth.guard';
 
 const appRoutes: Routes = [
     {
-        path      : '**',
-        redirectTo: 'sample'
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full'
+    },
+    {
+        path: 'login',
+        loadChildren: './main/login/login.module#LoginModule'
+    },
+    // {
+    //     path: '**',
+    //     canActivateChild: [AuthGuard],
+    //     loadChildren: './main/sample/sample.module#SampleModule'
+    // },
+    {
+        path: 'apps',
+        canActivateChild: [AuthGuard],
+        loadChildren: './main/apps/apps.module#AppsModule'
     }
 ];
 
@@ -29,7 +45,7 @@ const appRoutes: Routes = [
     declarations: [
         AppComponent
     ],
-    imports     : [
+    imports: [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
@@ -55,10 +71,9 @@ const appRoutes: Routes = [
         LayoutModule,
         SampleModule
     ],
-    bootstrap   : [
+    bootstrap: [
         AppComponent
     ]
 })
-export class AppModule
-{
+export class AppModule {
 }

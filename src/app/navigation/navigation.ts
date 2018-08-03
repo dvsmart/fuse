@@ -20,6 +20,14 @@ export const navigation: FuseNavigation[] = [
                     bg       : '#F44336',
                     fg       : '#FFFFFF'
                 }
+            },
+            {
+                id       : 'calendar',
+                title    : 'Calendar',
+                translate: 'NAV.CALENDAR',
+                type     : 'item',
+                icon     : 'today',
+                url      : '/apps/calendar'
             }
         ]
     }
