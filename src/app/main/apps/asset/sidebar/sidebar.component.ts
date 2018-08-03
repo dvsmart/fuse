@@ -35,7 +35,7 @@ export class SidebarComponent implements OnInit {
   {
       this.filterBy = this._propertyService.filterBy || 'all';
 
-      this._propertyService.onUserDataChanged
+      this._propertyService.onPropertyDataChanged
           .pipe(takeUntil(this._unsubscribeAll))
           .subscribe(user => {
               this.user = user;

@@ -132,7 +132,7 @@ export class PropertiesService {
                 this._httpClient.get('api/contacts-user/5725a6802d10e277a0f35724')
                     .subscribe((response: any) => {
                         this.user = response;
-                        this.o.next(this.user);
+                        //this.o.next(this.user);
                         resolve(this.user);
                     }, reject);
             }
@@ -156,7 +156,7 @@ export class PropertiesService {
                 this.selectedContacts.splice(index, 1);
 
                 // Trigger the next event
-                this.onSelectedContactsChanged.next(this.selectedContacts);
+                this.onSelectedPropertiesChanged.next(this.selectedContacts);
 
                 // Return
                 return;
@@ -167,7 +167,7 @@ export class PropertiesService {
         this.selectedContacts.push(id);
 
         // Trigger the next event
-        this.onSelectedContactsChanged.next(this.selectedContacts);
+        this.onSelectedPropertiesChanged.next(this.selectedContacts);
     }
 
     /**
@@ -220,7 +220,7 @@ export class PropertiesService {
 
             this._httpClient.post('api/contacts-contacts/' + contact.id, {...contact})
                 .subscribe(response => {
-                    this.getContacts();
+                    this.getProperties();
                     resolve(response);
                 });
         });
@@ -238,7 +238,7 @@ export class PropertiesService {
             this._httpClient.post('api/contacts-user/' + this.user.id, {...userData})
                 .subscribe(response => {
                     this.getUserData();
-                    this.getContacts();
+                    this.getProperties();
                     resolve(response);
                 });
         });
@@ -252,7 +252,7 @@ export class PropertiesService {
         this.selectedContacts = [];
 
         // Trigger the next event
-        this.onSelectedContactsChanged.next(this.selectedContacts);
+        this.onSelectedPropertiesChanged.next(this.selectedContacts);
     }
 
     /**
@@ -262,9 +262,9 @@ export class PropertiesService {
      */
     deleteContact(contact): void
     {
-        const contactIndex = this.contacts.indexOf(contact);
-        this.contacts.splice(contactIndex, 1);
-        this.onContactsChanged.next(this.contacts);
+        const contactIndex = this.properties.indexOf(contact);
+        this.properties.splice(contactIndex, 1);
+        this.onPropertyChanged.next(this.properties);
     }
 
     /**
@@ -274,13 +274,13 @@ export class PropertiesService {
     {
         for ( const contactId of this.selectedContacts )
         {
-            const contact = this.contacts.find(_contact => {
-                return _contact.id === contactId;
+            const contact = this.properties.find(_contact => {
+                return _contact.AssetId.toString() === contactId;
             });
-            const contactIndex = this.contacts.indexOf(contact);
-            this.contacts.splice(contactIndex, 1);
+            const contactIndex = this.properties.indexOf(contact);
+            this.properties.splice(contactIndex, 1);
         }
-        this.onContactsChanged.next(this.contacts);
+        this.onPropertyChanged.next(this.properties);
         this.deselectContacts();
     }
 
