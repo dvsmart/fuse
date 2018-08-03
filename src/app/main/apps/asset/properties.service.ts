@@ -199,13 +199,13 @@ export class PropertiesService {
         if ( filterParameter === undefined || filterValue === undefined )
         {
             this.selectedContacts = [];
-            this.contacts.map(contact => {
-                this.selectedContacts.push(contact.id);
+            this.properties.map(contact => {
+                this.selectedContacts.push(contact.AssetId.toString());
             });
         }
 
         // Trigger the next event
-        this.onSelectedContactsChanged.next(this.selectedContacts);
+        this.onSelectedPropertiesChanged.next(this.selectedContacts);
     }
 
     /**
