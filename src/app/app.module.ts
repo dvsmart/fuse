@@ -21,28 +21,17 @@ import { SampleModule } from 'app/main/sample/sample.module';
 import { InMemoryWebApiModule } from '../../node_modules/angular-in-memory-web-api';
 import { AuthGuard } from './main/guards/auth.guard';
 import { AuthService } from './main/guards/authservice';
+import { Login2Module } from './main/login-2/login-2.module';
+import { Login2Component } from './main/login-2/login-2.component';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo:'login' },
+    {path: '', redirectTo:'login', pathMatch: 'full'},
+    {path: 'login', component:Login2Component},
     {
-        path: 'login',
-        loadChildren: './main/pages/authentication/login-2.module#Login2Module'
-    },
-    {
-        path: '',
-        canActivate: [AuthGuard],
+        path:'',
+        canActivate:[AuthGuard],
         loadChildren: './main/apps/apps.module#AppsModule'
-    }//,
-    // {
-    //     path        : 'apps',
-    //     canActivateChild:[AuthGuard],
-    //     loadChildren: './main/apps/apps.module#AppsModule'
-    // },
-    // {
-    //     path        : 'pages',
-    //     loadChildren: './main/pages/pages.module#PagesModule'
-    // },
-    //{ path: '**', redirectTo: '' }
+    }
 ];
 
 @NgModule({
@@ -51,6 +40,7 @@ const appRoutes: Routes = [
     ],
     imports: [
         BrowserModule,
+        Login2Module,
         BrowserAnimationsModule,
         HttpClientModule,
         RouterModule.forRoot(appRoutes),

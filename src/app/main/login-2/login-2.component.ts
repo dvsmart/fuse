@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
-import { AuthService } from '../../../guards/authservice';
-import { Router, ActivatedRoute } from '../../../../../../node_modules/@angular/router';
+import { AuthService } from '../guards/authservice';
+import { Router, ActivatedRoute } from '../../../../node_modules/@angular/router';
 
 @Component({
     selector   : 'login-2',
@@ -58,7 +58,7 @@ export class Login2Component implements OnInit
      */
     ngOnInit(): void
     {
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
         this.loginForm = this._formBuilder.group({
             email   : ['', [Validators.required, Validators.email]],
             password: ['', Validators.required]

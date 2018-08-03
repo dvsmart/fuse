@@ -3,12 +3,12 @@ import { RouterModule } from '@angular/router';
 import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 import { FuseSharedModule } from '@fuse/shared.module';
+import { Login2Component } from './login-2.component';
 
-import { Login2Component } from 'app/main/pages/authentication/login-2/login-2.component';
 
 const routes = [
     {
-        path     : 'login-2',
+        path     : 'login',
         component: Login2Component
     }
 ];

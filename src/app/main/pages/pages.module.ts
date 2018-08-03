@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { Login2Module } from 'app/main/pages/authentication/login-2/login-2.module';
 import { ForgotPassword2Module } from 'app/main/pages/authentication/forgot-password-2/forgot-password-2.module';
 import { ResetPassword2Module } from 'app/main/pages/authentication/reset-password-2/reset-password-2.module';
 import { LockModule } from './authentication/lock/lock.module';
@@ -10,7 +9,6 @@ import { MailConfirmModule } from './authentication/mail-confirm/mail-confirm.mo
 @NgModule({
     imports: [
         // Authentication
-        Login2Module,
         ForgotPassword2Module,
         ResetPassword2Module,
 
