@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { FuseUtils } from '@fuse/utils';
 
 @Injectable({
     providedIn: 'root'
@@ -26,8 +27,7 @@ export class PropertiesService {
      */
     constructor(
         private _httpClient: HttpClient
-    )
-    {
+    ) {
         // Set the defaults
         this.onPropertiesChanged = new BehaviorSubject([]);
         this.onSelectedPropertiesChanged = new BehaviorSubject([]);
@@ -47,8 +47,7 @@ export class PropertiesService {
      * @param {RouterStateSnapshot} state
      * @returns {Observable<any> | Promise<any> | any}
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any
-    {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
         return new Promise((resolve, reject) => {
 
             Promise.all([
@@ -79,19 +78,21 @@ export class PropertiesService {
      *
      * @returns {Promise<any>}
      */
-    getProperties(page?:number,size?:number): Promise<any>
-    {
+    getProperties(page?: number, size?: number): Promise<any> {
         return new Promise((resolve, reject) => {
-                page = page === undefined ? 1 : page;
-                size = size === undefined ? 10: size;
-                this._httpClient.get('http://localhost:61011/api/AssetProperties?page=' + page+ '&pageSize=' + size)
-                    .subscribe((response: any) => {
-                        this.apiResponse = response;
-                        this.dataLength = response.totalCount;
-                        this.onPropertiesChanged.next(this.apiResponse.data);
-                        resolve(this.properties);
-                    }, reject);
-            }
+            page = page === undefined ? 1 : page;
+            size = size === undefined ? 10 : size;
+            this._httpClient.get('http://localhost:50621/api/AssetProperties?page=' + page + '&pageSize=' + size)
+                .subscribe((response: any) => {
+                    this.apiResponse = response;
+                    this.dataLength = response.totalCount;
+                    if (this.searchText && this.searchText !== '') {
+                        this.properties = FuseUtils.filterArrayByString(this.apiResponse.data, this.searchText);
+                    }
+                    this.onPropertiesChanged.next(this.apiResponse.data);
+                    resolve(this.properties);
+                }, reject);
+        }
         );
     }
 
@@ -100,15 +101,12 @@ export class PropertiesService {
      *
      * @param id
      */
-    toggleSelectedContact(id): void
-    {
+    toggleSelectedContact(id): void {
         // First, check if we already have that contact as selected...
-        if ( this.selectedProperties.length > 0 )
-        {
+        if (this.selectedProperties.length > 0) {
             const index = this.selectedProperties.indexOf(id);
 
-            if ( index !== -1 )
-            {
+            if (index !== -1) {
                 this.selectedProperties.splice(index, 1);
 
                 // Trigger the next event
@@ -129,14 +127,11 @@ export class PropertiesService {
     /**
      * Toggle select all
      */
-    toggleSelectAll(): void
-    {
-        if ( this.selectedProperties.length > 0 )
-        {
+    toggleSelectAll(): void {
+        if (this.selectedProperties.length > 0) {
             this.deselectProperties();
         }
-        else
-        {
+        else {
             this.selectProperties();
         }
     }
@@ -147,13 +142,12 @@ export class PropertiesService {
      * @param filterParameter
      * @param filterValue
      */
-    selectProperties(filterParameter?, filterValue?): void
-    {
+    selectProperties(filterParameter?, filterValue?): void {
+
         this.selectedProperties = [];
 
         // If there is no filter, select all contacts
-        if ( filterParameter === undefined || filterValue === undefined )
-        {
+        if (filterParameter === undefined || filterValue === undefined) {
             this.selectedProperties = [];
             this.properties.map(property => {
                 this.selectedProperties.push(property.id.toString());
@@ -170,11 +164,10 @@ export class PropertiesService {
      * @param contact
      * @returns {Promise<any>}
      */
-    updateContact(contact): Promise<any>
-    {
+    updateContact(contact): Promise<any> {
         return new Promise((resolve, reject) => {
 
-            this._httpClient.post('api/contacts-contacts/' + contact.id, {...contact})
+            this._httpClient.post('api/contacts-contacts/' + contact.id, { ...contact })
                 .subscribe(response => {
                     this.getProperties();
                     resolve(response);
@@ -202,8 +195,7 @@ export class PropertiesService {
     /**
      * Deselect contacts
      */
-    deselectProperties(): void
-    {
+    deselectProperties(): void {
         this.selectedProperties = [];
 
         // Trigger the next event
@@ -215,8 +207,7 @@ export class PropertiesService {
      *
      * @param contact
      */
-    deleteProperties(contact): void
-    {
+    deleteProperties(contact): void {
         const contactIndex = this.properties.indexOf(contact);
         this.properties.splice(contactIndex, 1);
         this.onPropertiesChanged.next(this.properties);
@@ -225,10 +216,8 @@ export class PropertiesService {
     /**
      * Delete selected contacts
      */
-    deleteSelectedProperties(): void
-    {
-        for ( const propertyId of this.selectedProperties )
-        {
+    deleteSelectedProperties(): void {
+        for (const propertyId of this.selectedProperties) {
             const contact = this.properties.find(_property => {
                 return _property.id.toString() === propertyId;
             });

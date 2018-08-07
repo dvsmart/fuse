@@ -23,7 +23,7 @@ export class PropertiesListComponent implements OnInit {
   properties: any;
   pageSize = 10;
   dataSource: FilesDataSource | null;
-  displayedColumns = ['checkbox', 'addressLine1', 'addressLine2', 'postCode', 'city', 'portfolioName', 'buttons'];
+  displayedColumns = ['checkbox', 'propertyReference','addressLine1', 'addressLine2', 'postCode', 'city', 'portfolioName', 'buttons'];
   selectedContacts: any[];
   checkboxes: {};
   dialogRef: any;
@@ -178,7 +178,6 @@ export class PropertiesListComponent implements OnInit {
   }
 
   pageEvent($event) {
-    debugger;
     this.currentPage = $event.pageIndex + 1;
     this.pageSize = $event.pageSize;
     this._propertyservice.getProperties(this.currentPage,this.pageSize);

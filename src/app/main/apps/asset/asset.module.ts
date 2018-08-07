@@ -47,6 +47,7 @@ const routes: Routes = [
     MatPaginatorModule
   ],
   providers:[PropertiesService],
-  declarations: [AssetComponent, PropertiesListComponent, PropertiesFormComponent, SelectedBarComponent, SidebarComponent]
+  declarations: [AssetComponent, PropertiesListComponent, PropertiesFormComponent, SelectedBarComponent, SidebarComponent],
+  entryComponents:[PropertiesFormComponent]
 })
 export class AssetModule { }

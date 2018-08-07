@@ -9,6 +9,7 @@ export class FuseUtils
      */
     public static filterArrayByString(mainArr, searchText): any
     {
+        debugger;
         if ( searchText === '' )
         {
             return mainArr;

@@ -8,6 +8,13 @@
         </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="propertyReference">
+            <mat-header-cell *matHeaderCellDef>propertyReference</mat-header-cell>
+            <mat-cell *matCellDef="let property">
+                <p class="text-truncate">{{property.propertyReference}}</p>
+            </mat-cell>
+        </ng-container>
+
     <!-- Name Column -->
     <ng-container matColumnDef="addressLine1">
         <mat-header-cell *matHeaderCellDef>addressLine1</mat-header-cell>
@@ -60,7 +67,7 @@
     <ng-container matColumnDef="buttons">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let property">
-            <div fxFlex="row" fxLayoutAlign="end center">
+            <div fxFlex="row">
                 <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More" (click)="$event.stopPropagation();">
                     <mat-icon class="secondary-text">more_vert</mat-icon>
                 </button>
@@ -69,6 +76,10 @@
                         <mat-icon>delete</mat-icon>
                         <span>Remove</span>
                     </button>
+                    <button mat-menu-item aria-label="archive" (click)="deleteContact(property)">
+                            <mat-icon>archive</mat-icon>
+                            <span>Archive</span>
+                        </button>
                 </mat-menu>
             </div>
         </mat-cell>
@@ -78,7 +89,8 @@
     <mat-row *matRowDef="let property; columns: displayedColumns;" class="contact" (click)="editContact(property)" [ngClass]="{'mat-accent-50-bg':checkboxes[property.id]}"
         matRipple [@animate]="{value:'*',params:{y:'100%'}}">
     </mat-row>
-    
+
 </mat-table>
-<mat-paginator #paginator (page)="pageEvent($event)" [pageSize]="pageSize" [length]="getPageSize()" [pageSizeOptions]="[5, 10, 50, 100]" [showFirstLastButtons]="true">
+<mat-paginator #paginator (page)="pageEvent($event)" [pageSize]="pageSize" [length]="getPageSize()" [pageSizeOptions]="[5, 10, 50, 100]"
+    [showFirstLastButtons]="true">
 </mat-paginator>
