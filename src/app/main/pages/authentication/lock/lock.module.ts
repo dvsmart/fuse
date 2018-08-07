@@ -4,7 +4,7 @@ import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule } fr
 
 import { FuseSharedModule } from '@fuse/shared.module';
 
-import { LockComponent } from 'app/main/pages/authentication/lock/lock.component';
+import { LockComponent } from './lock.component';
 
 const routes = [
     {

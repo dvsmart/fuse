@@ -5,8 +5,8 @@ import { Subject } from 'rxjs';
 
 import { fuseAnimations } from '@fuse/animations';
 
-import { Todo } from 'app/main/apps/todo/todo.model';
-import { TodoService } from 'app/main/apps/todo/todo.service';
+import { Todo } from '../todo.model';
+import { TodoService } from '../todo.service';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

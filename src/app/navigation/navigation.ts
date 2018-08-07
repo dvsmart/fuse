@@ -62,7 +62,7 @@ export const navigation: FuseNavigation[] = [
                         id   : 'properties',
                         title: 'Properties',
                         type : 'item',
-                        url  : '/apps/asset-properties/asset-properties'
+                        url  : '/apps/asset'
                     }
                 ]
             },

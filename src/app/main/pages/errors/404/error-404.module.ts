@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 
-import { Error404Component } from 'app/main/pages/errors/404/error-404.component';
+import { Error404Component } from './error-404.component';
 
 const routes = [
     {

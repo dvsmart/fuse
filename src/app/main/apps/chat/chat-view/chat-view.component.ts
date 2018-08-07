@@ -5,7 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { FusePerfectScrollbarDirective } from '@fuse/directives/fuse-perfect-scrollbar/fuse-perfect-scrollbar.directive';
 
-import { ChatService } from 'app/main/apps/chat/chat.service';
+import { ChatService } from '../chat.service';
 
 @Component({
     selector   : 'chat-view',

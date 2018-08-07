@@ -5,12 +5,12 @@ import { MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldMo
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseConfirmDialogModule, FuseSidebarModule } from '@fuse/components';
 
-import { ContactsComponent } from 'app/main/apps/contacts/contacts.component';
-import { ContactsService } from 'app/main/apps/contacts/contacts.service';
-import { ContactsContactListComponent } from 'app/main/apps/contacts/contact-list/contact-list.component';
-import { ContactsSelectedBarComponent } from 'app/main/apps/contacts/selected-bar/selected-bar.component';
-import { ContactsMainSidebarComponent } from 'app/main/apps/contacts/sidebars/main/main.component';
-import { ContactsContactFormDialogComponent } from 'app/main/apps/contacts/contact-form/contact-form.component';
+import { ContactsComponent } from './contacts.component';
+import { ContactsService } from './contacts.service';
+import { ContactsContactListComponent } from './contact-list/contact-list.component';
+import { ContactsSelectedBarComponent } from './selected-bar/selected-bar.component';
+import { ContactsMainSidebarComponent } from './sidebars/main/main.component';
+import { ContactsContactFormDialogComponent } from './contact-form/contact-form.component';
 
 const routes: Routes = [
     {

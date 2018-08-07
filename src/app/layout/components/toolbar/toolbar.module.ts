@@ -5,7 +5,7 @@ import { MatButtonModule, MatIconModule, MatMenuModule, MatToolbarModule } from 
 import { FuseSearchBarModule, FuseShortcutsModule } from '@fuse/components';
 import { FuseSharedModule } from '@fuse/shared.module';
 
-import { ToolbarComponent } from 'app/layout/components/toolbar/toolbar.component';
+import { ToolbarComponent } from './toolbar.component';
 
 @NgModule({
     declarations: [

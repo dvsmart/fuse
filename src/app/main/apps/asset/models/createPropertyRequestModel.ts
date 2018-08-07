@@ -15,7 +15,7 @@ export class CreateAssetPropertyRequest {
     CountyId: number | null;
     CountryId: number | null;
     AssetId: number;
-
+    id: number;
     /**
      *
      */

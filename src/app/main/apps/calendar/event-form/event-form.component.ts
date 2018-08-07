@@ -5,7 +5,7 @@ import { CalendarEvent } from 'angular-calendar';
 
 import { MatColors } from '@fuse/mat-colors';
 
-import { CalendarEventModel } from 'app/main/apps/calendar/event.model';
+import { CalendarEventModel } from '../event.model';
 
 @Component({
     selector     : 'calendar-event-form-dialog',

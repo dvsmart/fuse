@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { ChatService } from 'app/main/apps/chat/chat.service';
+import { ChatService } from '../../../chat.service';
 
 @Component({
     selector   : 'chat-contact-sidenav',

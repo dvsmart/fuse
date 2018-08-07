@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { fuseAnimations } from '@fuse/animations';
 
-import { FileManagerService } from 'app/main/apps/file-manager/file-manager.service';
+import { FileManagerService } from '../../file-manager.service';
 
 @Component({
     selector   : 'file-manager-details-sidebar',

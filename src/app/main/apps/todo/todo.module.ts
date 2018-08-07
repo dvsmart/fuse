@@ -6,12 +6,12 @@ import { NgxDnDModule } from '@swimlane/ngx-dnd';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseSidebarModule } from '@fuse/components';
 
-import { TodoService } from 'app/main/apps/todo/todo.service';
-import { TodoComponent } from 'app/main/apps/todo/todo.component';
-import { TodoMainSidebarComponent } from 'app/main/apps/todo/sidebars/main/main-sidebar.component';
-import { TodoListItemComponent } from 'app/main/apps/todo/todo-list/todo-list-item/todo-list-item.component';
-import { TodoListComponent } from 'app/main/apps/todo/todo-list/todo-list.component';
-import { TodoDetailsComponent } from 'app/main/apps/todo/todo-details/todo-details.component';
+import { TodoService } from './todo.service';
+import { TodoComponent } from './todo.component';
+import { TodoMainSidebarComponent } from './sidebars/main/main-sidebar.component';
+import { TodoListItemComponent } from './todo-list/todo-list-item/todo-list-item.component';
+import { TodoListComponent } from './todo-list/todo-list.component';
+import { TodoDetailsComponent } from './todo-details/todo-details.component';
 
 const routes: Routes = [
     {

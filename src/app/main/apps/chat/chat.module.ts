@@ -5,15 +5,15 @@ import { MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatI
 
 import { FuseSharedModule } from '@fuse/shared.module';
 
-import { ChatService } from 'app/main/apps/chat/chat.service';
-import { ChatComponent } from 'app/main/apps/chat/chat.component';
-import { ChatStartComponent } from 'app/main/apps/chat/chat-start/chat-start.component';
-import { ChatViewComponent } from 'app/main/apps/chat/chat-view/chat-view.component';
-import { ChatChatsSidenavComponent } from 'app/main/apps/chat/sidenavs/left/chats/chats.component';
-import { ChatUserSidenavComponent } from 'app/main/apps/chat/sidenavs/left/user/user.component';
-import { ChatLeftSidenavComponent } from 'app/main/apps/chat/sidenavs/left/left.component';
-import { ChatRightSidenavComponent } from 'app/main/apps/chat/sidenavs/right/right.component';
-import { ChatContactSidenavComponent } from 'app/main/apps/chat/sidenavs/right/contact/contact.component';
+import { ChatService } from './chat.service';
+import { ChatComponent } from './chat.component';
+import { ChatStartComponent } from './chat-start/chat-start.component';
+import { ChatViewComponent } from './chat-view/chat-view.component';
+import { ChatChatsSidenavComponent } from './sidenavs/left/chats/chats.component';
+import { ChatUserSidenavComponent } from './sidenavs/left/user/user.component';
+import { ChatLeftSidenavComponent } from './sidenavs/left/left.component';
+import { ChatRightSidenavComponent } from './sidenavs/right/right.component';
+import { ChatContactSidenavComponent } from './sidenavs/right/contact/contact.component';
 
 const routes: Routes = [
     {

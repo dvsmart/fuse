@@ -1,24 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject, Observable } from '../../../../../node_modules/rxjs';
-import { HttpClient } from '../../../../../node_modules/@angular/common/http';
-import { FuseUtils } from '@fuse/utils';
-import { CreateAssetPropertyRequest } from './models/createPropertyRequestModel';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '../../../../../node_modules/@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class PropertiesService {
-    onPropertyChanged: BehaviorSubject<any>;
+    onPropertiesChanged: BehaviorSubject<any>;
     onSelectedPropertiesChanged: BehaviorSubject<any>;
-    onPropertyDataChanged: BehaviorSubject<any>;
     onSearchTextChanged: Subject<any>;
     onFilterChanged: Subject<any>;
+    dataLength: BehaviorSubject<number>;
 
-    properties: CreateAssetPropertyRequest[];
-    user: any;
-    selectedContacts: string[] = [];
-
+    apiResponse: any;
+    properties: any[];
+    selectedProperties: string[] = [];
     searchText: string;
     filterBy: string;
 
@@ -32,11 +29,11 @@ export class PropertiesService {
     )
     {
         // Set the defaults
-        this.onPropertyChanged = new BehaviorSubject([]);
+        this.onPropertiesChanged = new BehaviorSubject([]);
         this.onSelectedPropertiesChanged = new BehaviorSubject([]);
-        this.onPropertyDataChanged = new BehaviorSubject([]);
         this.onSearchTextChanged = new Subject();
         this.onFilterChanged = new Subject();
+        this.dataLength = new BehaviorSubject(0);
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -56,7 +53,6 @@ export class PropertiesService {
 
             Promise.all([
                 this.getProperties(),
-                //this.getUserData()
             ]).then(
                 ([files]) => {
 
@@ -65,10 +61,10 @@ export class PropertiesService {
                         this.getProperties();
                     });
 
-                    // this.onFilterChanged.subscribe(filter => {
-                    //     this.filterBy = filter;
-                    //     this.getContacts();
-                    // });
+                    this.onFilterChanged.subscribe(filter => {
+                        this.filterBy = filter;
+                        this.getProperties();
+                    });
 
                     resolve();
 
@@ -83,57 +79,17 @@ export class PropertiesService {
      *
      * @returns {Promise<any>}
      */
-    getProperties(): Promise<any>
+    getProperties(page?:number,size?:number): Promise<any>
     {
         return new Promise((resolve, reject) => {
-                this._httpClient.get('api/contacts-contacts')
+                page = page === undefined ? 1 : page;
+                size = size === undefined ? 10: size;
+                this._httpClient.get('http://localhost:61011/api/AssetProperties?page=' + page+ '&pageSize=' + size)
                     .subscribe((response: any) => {
-
-                        this.properties = response;
-
-                        // if ( this.filterBy === 'starred' )
-                        // {
-                        //     this.properties = this.properties.filter(_property => {
-                        //         return this.user.starred.includes(_property.AssetId);
-                        //     });
-                        // }
-
-                        // if ( this.filterBy === 'frequent' )
-                        // {
-                        //     this.properties = this.properties.filter(_property => {
-                        //         return this.user.frequentContacts.includes(_contact.id);
-                        //     });
-                        // }
-
-                        // if ( this.searchText && this.searchText !== '' )
-                        // {
-                        //     this.contacts = FuseUtils.filterArrayByString(this.contacts, this.searchText);
-                        // }
-
-                        // this.contacts = this.contacts.map(contact => {
-                        //     return new CreateAssetPropertyRequest(contact);
-                        // });
-
-                        this.onPropertyChanged.next(this.properties);
+                        this.apiResponse = response;
+                        this.dataLength = response.totalCount;
+                        this.onPropertiesChanged.next(this.apiResponse.data);
                         resolve(this.properties);
-                    }, reject);
-            }
-        );
-    }
-
-    /**
-     * Get user data
-     *
-     * @returns {Promise<any>}
-     */
-    getUserData(): Promise<any>
-    {
-        return new Promise((resolve, reject) => {
-                this._httpClient.get('api/contacts-user/5725a6802d10e277a0f35724')
-                    .subscribe((response: any) => {
-                        this.user = response;
-                        //this.o.next(this.user);
-                        resolve(this.user);
                     }, reject);
             }
         );
@@ -147,16 +103,16 @@ export class PropertiesService {
     toggleSelectedContact(id): void
     {
         // First, check if we already have that contact as selected...
-        if ( this.selectedContacts.length > 0 )
+        if ( this.selectedProperties.length > 0 )
         {
-            const index = this.selectedContacts.indexOf(id);
+            const index = this.selectedProperties.indexOf(id);
 
             if ( index !== -1 )
             {
-                this.selectedContacts.splice(index, 1);
+                this.selectedProperties.splice(index, 1);
 
                 // Trigger the next event
-                this.onSelectedPropertiesChanged.next(this.selectedContacts);
+                this.onSelectedPropertiesChanged.next(this.selectedProperties);
 
                 // Return
                 return;
@@ -164,10 +120,10 @@ export class PropertiesService {
         }
 
         // If we don't have it, push as selected
-        this.selectedContacts.push(id);
+        this.selectedProperties.push(id);
 
         // Trigger the next event
-        this.onSelectedPropertiesChanged.next(this.selectedContacts);
+        this.onSelectedPropertiesChanged.next(this.selectedProperties);
     }
 
     /**
@@ -175,13 +131,13 @@ export class PropertiesService {
      */
     toggleSelectAll(): void
     {
-        if ( this.selectedContacts.length > 0 )
+        if ( this.selectedProperties.length > 0 )
         {
-            this.deselectContacts();
+            this.deselectProperties();
         }
         else
         {
-            this.selectContacts();
+            this.selectProperties();
         }
     }
 
@@ -191,21 +147,21 @@ export class PropertiesService {
      * @param filterParameter
      * @param filterValue
      */
-    selectContacts(filterParameter?, filterValue?): void
+    selectProperties(filterParameter?, filterValue?): void
     {
-        this.selectedContacts = [];
+        this.selectedProperties = [];
 
         // If there is no filter, select all contacts
         if ( filterParameter === undefined || filterValue === undefined )
         {
-            this.selectedContacts = [];
-            this.properties.map(contact => {
-                this.selectedContacts.push(contact.AssetId.toString());
+            this.selectedProperties = [];
+            this.properties.map(property => {
+                this.selectedProperties.push(property.id.toString());
             });
         }
 
         // Trigger the next event
-        this.onSelectedPropertiesChanged.next(this.selectedContacts);
+        this.onSelectedPropertiesChanged.next(this.selectedProperties);
     }
 
     /**
@@ -232,27 +188,26 @@ export class PropertiesService {
      * @param userData
      * @returns {Promise<any>}
      */
-    updateUserData(userData): Promise<any>
-    {
-        return new Promise((resolve, reject) => {
-            this._httpClient.post('api/contacts-user/' + this.user.id, {...userData})
-                .subscribe(response => {
-                    this.getUserData();
-                    this.getProperties();
-                    resolve(response);
-                });
-        });
-    }
+    // updateUserData(userData): Promise<any>
+    // {
+    //     return new Promise((resolve, reject) => {
+    //         this._httpClient.post('api/contacts-user/' + this.user.id, {...userData})
+    //             .subscribe(response => {
+    //                 this.getProperties();
+    //                 resolve(response);
+    //             });
+    //     });
+    // }
 
     /**
      * Deselect contacts
      */
-    deselectContacts(): void
+    deselectProperties(): void
     {
-        this.selectedContacts = [];
+        this.selectedProperties = [];
 
         // Trigger the next event
-        this.onSelectedPropertiesChanged.next(this.selectedContacts);
+        this.onSelectedPropertiesChanged.next(this.selectedProperties);
     }
 
     /**
@@ -260,28 +215,28 @@ export class PropertiesService {
      *
      * @param contact
      */
-    deleteContact(contact): void
+    deleteProperties(contact): void
     {
         const contactIndex = this.properties.indexOf(contact);
         this.properties.splice(contactIndex, 1);
-        this.onPropertyChanged.next(this.properties);
+        this.onPropertiesChanged.next(this.properties);
     }
 
     /**
      * Delete selected contacts
      */
-    deleteSelectedContacts(): void
+    deleteSelectedProperties(): void
     {
-        for ( const contactId of this.selectedContacts )
+        for ( const propertyId of this.selectedProperties )
         {
-            const contact = this.properties.find(_contact => {
-                return _contact.AssetId.toString() === contactId;
+            const contact = this.properties.find(_property => {
+                return _property.id.toString() === propertyId;
             });
             const contactIndex = this.properties.indexOf(contact);
             this.properties.splice(contactIndex, 1);
         }
-        this.onPropertyChanged.next(this.properties);
-        this.deselectContacts();
+        this.onPropertiesChanged.next(this.properties);
+        this.deselectProperties();
     }
 
 }

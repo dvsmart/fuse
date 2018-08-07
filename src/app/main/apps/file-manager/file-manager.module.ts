@@ -5,11 +5,11 @@ import { MatButtonModule, MatIconModule, MatRippleModule, MatSlideToggleModule, 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseSidebarModule } from '@fuse/components';
 
-import { FileManagerService } from 'app/main/apps/file-manager/file-manager.service';
-import { FileManagerComponent } from 'app/main/apps/file-manager/file-manager.component';
-import { FileManagerDetailsSidebarComponent } from 'app/main/apps/file-manager/sidebars/details/details.component';
-import { FileManagerFileListComponent } from 'app/main/apps/file-manager/file-list/file-list.component';
-import { FileManagerMainSidebarComponent } from 'app/main/apps/file-manager/sidebars/main/main.component';
+import { FileManagerService } from './file-manager.service';
+import { FileManagerComponent } from './file-manager.component';
+import { FileManagerDetailsSidebarComponent } from './sidebars/details/details.component';
+import { FileManagerFileListComponent } from './file-list/file-list.component';
+import { FileManagerMainSidebarComponent } from './sidebars/main/main.component';
 
 const routes: Routes = [
     {

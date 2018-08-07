@@ -7,9 +7,9 @@ import { CalendarModule as AngularCalendarModule } from 'angular-calendar';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseConfirmDialogModule } from '@fuse/components';
 
-import { CalendarComponent } from 'app/main/apps/calendar/calendar.component';
-import { CalendarService } from 'app/main/apps/calendar/calendar.service';
-import { CalendarEventFormDialogComponent } from 'app/main/apps/calendar/event-form/event-form.component';
+import { CalendarComponent } from './calendar.component';
+import { CalendarService } from './calendar.service';
+import { CalendarEventFormDialogComponent } from './event-form/event-form.component';
 
 const routes: Routes = [
     {

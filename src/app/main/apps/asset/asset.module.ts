@@ -6,16 +6,20 @@ import { PropertiesFormComponent } from './properties-form/properties-form.compo
 import { SelectedBarComponent } from './selected-bar/selected-bar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { PropertiesService } from './properties.service';
-import { Routes } from '../../../../../node_modules/@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '../../../shared/shared.module';
+import { FuseSidebarModule, FuseConfirmDialogModule } from '@fuse/components';
+import { FuseSharedModule } from '@fuse/shared.module';
+import { MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule, MatRippleModule, MatTableModule, MatToolbarModule, MatPaginatorModule } from '@angular/material';
+import { MessageService } from '../../../shared/services/message.service';
 
 const routes: Routes = [
   {
-      path     : '**',
-      component: AssetComponent,
-      resolve  : {
-          contacts: PropertiesService
-      }
+    path: '**',
+    component: AssetComponent,
+    resolve:{
+      properties: PropertiesService
+    }
   }
 ];
 
@@ -23,8 +27,26 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    FuseSharedModule,
+    FuseConfirmDialogModule,
+    FuseSidebarModule,
+
+    RouterModule.forChild(routes),
+
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatRippleModule,
+    MatTableModule,
+    MatToolbarModule,
+    MatPaginatorModule
   ],
+  providers:[PropertiesService],
   declarations: [AssetComponent, PropertiesListComponent, PropertiesFormComponent, SelectedBarComponent, SidebarComponent]
 })
 export class AssetModule { }

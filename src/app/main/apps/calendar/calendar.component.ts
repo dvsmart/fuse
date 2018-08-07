@@ -8,9 +8,9 @@ import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, Cal
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { fuseAnimations } from '@fuse/animations';
 
-import { CalendarService } from 'app/main/apps/calendar/calendar.service';
-import { CalendarEventModel } from 'app/main/apps/calendar/event.model';
-import { CalendarEventFormDialogComponent } from 'app/main/apps/calendar/event-form/event-form.component';
+import { CalendarService } from './calendar.service';
+import { CalendarEventModel } from './event.model';
+import { CalendarEventFormDialogComponent } from './event-form/event-form.component';
 
 @Component({
     selector     : 'calendar',

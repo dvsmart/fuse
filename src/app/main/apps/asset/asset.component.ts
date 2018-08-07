@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
+import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
+import { FormControl } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { PropertiesService } from './properties.service';
+import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-asset',
@@ -9,10 +14,42 @@ import { fuseAnimations } from '@fuse/animations';
   animations: fuseAnimations
 })
 export class AssetComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  searchInput: FormControl;
+  hasSelectedProperties: boolean;
+  private _unsubscribeAll: Subject<any>;
+  constructor(private _fuseSidebarService: FuseSidebarService, private _propertyservice: PropertiesService) {
+    this.searchInput = new FormControl('');
+    this._unsubscribeAll = new Subject();
   }
 
+  ngOnInit(): void {
+    this._propertyservice.onSelectedPropertiesChanged
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(selectedContacts => {
+        this.hasSelectedProperties = selectedContacts.length > 0;
+      });
+
+    this.searchInput.valueChanges
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        debounceTime(300),
+        distinctUntilChanged()
+      )
+      .subscribe(searchText => {
+        this._propertyservice.onSearchTextChanged.next(searchText);
+      });
+  }
+
+  /**
+   * On destroy
+   */
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
+  }
+
+  toggleSidebar(name): void {
+    this._fuseSidebarService.getSidebar(name).toggleOpen();
+  }
 }

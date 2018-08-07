@@ -21,6 +21,10 @@ const routes: Routes = [
         loadChildren: './contacts/contacts.module#ContactsModule'
     },
     {
+        path        : 'asset',
+        loadChildren: './asset/asset.module#AssetModule'
+    },
+    {
         path: 'calendar',
         loadChildren: './calendar/calendar.module#CalendarModule'
     },

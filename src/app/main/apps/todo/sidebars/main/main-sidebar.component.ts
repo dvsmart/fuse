@@ -5,7 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { fuseAnimations } from '@fuse/animations';
 
-import { TodoService } from 'app/main/apps/todo/todo.service';
+import { TodoService } from '../../todo.service';
 
 @Component({
     selector   : 'todo-main-sidebar',
