@@ -1,3 +1,33 @@
-<p>
-  data-table works!
-</p>
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+      No data Available.
+    </div>
+  </div>
+  <mat-table #table [dataSource]="dataSource" multiTemplateDataRows class="example-table" matSort matSortActive="dueDate" matSortDisableClear
+    matSortDirection="asc" layout="row" layout-xs="column">
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+        <!-- <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+      </mat-checkbox> -->
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="onRowSelect(row, $event)" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container *ngFor="let map of columnMaps" matColumnDef="{{map.primaryKey}}">
+        <mat-header-cell *matHeaderCellDef mat-sort-header={{map.primaryKey}} flex> {{map.header}}</mat-header-cell>
+        <mat-cell flex *matCellDef="let row">{{ row[map.primaryKey] | formatCell:map.format }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row mat-ripple class="mat-ripple" (click)="editRow(row)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator (page)="pageEvent($event)" [pageSize]="pageSize" [length]="resultsLength" [pageSizeOptions]="[5, 10, 50, 100]"
+    [showFirstLastButtons]="true">
+  </mat-paginator>
+</div>
