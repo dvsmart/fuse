@@ -25,6 +25,10 @@ const routes: Routes = [
         loadChildren: './asset/asset.module#AssetModule'
     },
     {
+        path        : 'assessment',
+        loadChildren: './assessment/assessment.module#AssessmentModule'
+    },
+    {
         path: 'calendar',
         loadChildren: './calendar/calendar.module#CalendarModule'
     },

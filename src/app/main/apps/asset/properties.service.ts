@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { FuseUtils } from '@fuse/utils';
+import { environment } from 'environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -82,7 +83,7 @@ export class PropertiesService {
         return new Promise((resolve, reject) => {
             page = page === undefined ? 1 : page;
             size = size === undefined ? 10 : size;
-            this._httpClient.get('http://localhost:50621/api/AssetProperties?page=' + page + '&pageSize=' + size)
+            this._httpClient.get(environment.apiUrl + 'AssetProperties?page=' + page + '&pageSize=' + size)
                 .subscribe((response: any) => {
                     this.apiResponse = response;
                     this.dataLength = response.totalCount;

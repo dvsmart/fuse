@@ -9,6 +9,7 @@ export const locale = {
             'FILE_MANAGER': 'File Manager',
             'CONTACTS' : 'Contacts',
             'ASSET': 'Asset',
+            'ASSESSMENT': 'Assessment',
             'TODO'        : 'To-Do',
             'SAMPLE'        : {
                 'TITLE': 'Sample',
