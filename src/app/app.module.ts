@@ -25,7 +25,7 @@ import { Login2Module } from './main/login-2/login-2.module';
 import { MessageService } from './shared/services/message.service';
 
 const appRoutes: Routes = [
-    {path: '', redirectTo:'apps', pathMatch: 'full'},
+    {path: '', redirectTo:'apps/dashboards/analytics', pathMatch: 'full'},
     {
         path:'apps',
         canActivate:[AuthGuard],

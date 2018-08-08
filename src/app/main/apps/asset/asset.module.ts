@@ -11,7 +11,6 @@ import { SharedModule } from '../../../shared/shared.module';
 import { FuseSidebarModule, FuseConfirmDialogModule } from '@fuse/components';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule, MatRippleModule, MatTableModule, MatToolbarModule, MatPaginatorModule } from '@angular/material';
-import { MessageService } from '../../../shared/services/message.service';
 
 const routes: Routes = [
   {

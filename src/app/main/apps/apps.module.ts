@@ -21,7 +21,7 @@ const routes: Routes = [
         loadChildren: './contacts/contacts.module#ContactsModule'
     },
     {
-        path        : 'asset',
+        path        : 'properties',
         loadChildren: './asset/asset.module#AssetModule'
     },
     {

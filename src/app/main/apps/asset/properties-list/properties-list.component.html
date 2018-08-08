@@ -9,7 +9,7 @@
     </ng-container>
 
     <ng-container matColumnDef="propertyReference">
-            <mat-header-cell *matHeaderCellDef>propertyReference</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Reference</mat-header-cell>
             <mat-cell *matCellDef="let property">
                 <p class="text-truncate">{{property.propertyReference}}</p>
             </mat-cell>
@@ -17,7 +17,7 @@
 
     <!-- Name Column -->
     <ng-container matColumnDef="addressLine1">
-        <mat-header-cell *matHeaderCellDef>addressLine1</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Address Line 1</mat-header-cell>
         <mat-cell *matCellDef="let property">
             <p class="text-truncate">{{property.addressLine1}}</p>
         </mat-cell>
@@ -25,7 +25,7 @@
 
     <!-- Email Column -->
     <ng-container matColumnDef="addressLine2">
-        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>addressLine2</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Address Line 2</mat-header-cell>
         <mat-cell *matCellDef="let property" fxHide fxShow.gt-sm>
             <p class="email text-truncate">
                 {{property.addressLine2}}
@@ -35,7 +35,7 @@
 
     <!-- Phone Column -->
     <ng-container matColumnDef="postCode">
-        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Phone</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Post code</mat-header-cell>
         <mat-cell *matCellDef="let property" fxHide fxShow.gt-md>
             <p class="phone text-truncate">
                 {{property.postCode}}
@@ -45,7 +45,7 @@
 
     <!-- Job Title Column -->
     <ng-container matColumnDef="city">
-        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-lg>city</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-lg>City</mat-header-cell>
         <mat-cell *matCellDef="let property" fxHide fxShow.gt-lg>
             <p class="job-title text-truncate">
                 {{property.city}}
@@ -55,7 +55,7 @@
 
     <!-- Company Column -->
     <ng-container matColumnDef="portfolioName">
-        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-lg>portfolioName</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-lg>Portfolio</mat-header-cell>
         <mat-cell *matCellDef="let property" fxHide fxShow.gt-lg>
             <p class="company text-truncate">
                 {{property.portfolioName}}
