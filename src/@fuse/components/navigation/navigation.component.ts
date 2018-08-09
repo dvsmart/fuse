@@ -47,8 +47,6 @@ export class FuseNavigationComponent implements OnInit
 
         this._fuseNavigationService.getMenu().subscribe(x => {
             this.navigation = x;
-            this._fuseNavigationService.register('main', this.navigation);
-            this._fuseNavigationService.setCurrentNavigation('main');
         });
 
         // Subscribe to the current navigation changes

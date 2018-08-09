@@ -26,6 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     // Private
     private _unsubscribeAll: Subject<any>;
+    
 
     /**
      * Constructor
@@ -43,11 +44,18 @@ export class AppComponent implements OnInit, OnDestroy {
         @Inject(DOCUMENT) private document: any,
         private _fuseConfigService: FuseConfigService,
         private _fuseSidebarService: FuseSidebarService,
+        private _fuseNavigationService: FuseNavigationService,
+        private _fuseSplashscreen: FuseSplashScreenService,
         private _fuseTranslationLoaderService: FuseTranslationLoaderService,
         private _translateService: TranslateService,
         private _platform: Platform
     ) {
 
+        this._fuseNavigationService.getMenu().subscribe(x => {
+            this.navigation = x;
+            this._fuseNavigationService.register('main', this.navigation);
+            this._fuseNavigationService.setCurrentNavigation('main');
+        });
         // Add languages
         this._translateService.addLangs(['en', 'tr']);
 
