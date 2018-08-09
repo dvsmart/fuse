@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import { FuseNavigationItem } from '../../types';
+import { HttpClient } from '../../../../node_modules/@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +23,7 @@ export class FuseNavigationService
     /**
      * Constructor
      */
-    constructor()
+    constructor(private http: HttpClient)
     {
         // Set the defaults
         this.onItemCollapsed = new Subject();
@@ -33,6 +34,10 @@ export class FuseNavigationService
         this._onNavigationChanged = new BehaviorSubject(null);
         this._onNavigationRegistered = new BehaviorSubject(null);
         this._onNavigationUnregistered = new BehaviorSubject(null);
+    }
+
+    getMenu() : Observable<any>{
+        return this.http.get<any>('http://localhost:61011/api/Menu');
     }
 
     // -----------------------------------------------------------------------------------------------------
